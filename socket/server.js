@@ -21,27 +21,60 @@ server.listen(4000, function () {
 
 let users = {};
 let socketRoom = {};
-const maximum = 2;
+const maximum = 5;
 // connection을 수립하고, callback 인자로 socket을 받음
 io.on('connection', (socket) => {
     // 연결이 성공했을 경우 실행됨
-    socket.on('join_roomRTC', (data) => {
+
+    socket.on('join_roomRtc', (data) => {
+        let checkData = false;
         if (users[data.room]) {
             const length = users[data.room].length;
             if (length === maximum) {
-                io.to(socket.id).emit('room_full');
+                socket.to(socket.id).emit('room_full');
                 return;
             }
-            users[data.room].push({ id: socket.id, nickname: data.nickname });
+            users[data.room].push({ id: socket.id, email: data.email });
         } else {
-            users[data.room] = [{ id: socket.id, nickname: data.nickname }];
+            users[data.room] = [{ id: socket.id, email: data.email }];
         }
-
         socketRoom[socket.id] = data.room;
         socket.join(data.room);
-        const userInThisRoom = users[data.room].filter((user) => user.id !== socket.id);
-        io.to(socket.id).emit('all_users', userInThisRoom);
+        const usersInThisRoom = users[data.room].filter((user) => user.id !== socket.id);
+        io.sockets.to(socket.id).emit('all_users', usersInThisRoom);
     });
+
+    socket.on('offerRtc', (data) => {
+        socket
+            .to(data.offerReceiveID)
+            .emit('getOffer', { sdp: data.sdp, offerSendID: data.offerSendID, offerSendEmail: data.offerSendEmail });
+    });
+
+    socket.on('answerRtc', (data) => {
+        socket.to(data.answerReceiveID).emit('getAnswer', { sdp: data.sdp, answerSendID: data.answerSendID });
+    });
+
+    socket.on('candidateRtc', (data) => {
+        socket
+            .to(data.candidateReceiveID)
+            .emit('getCandidate', { candidate: data.candidate, candidateSendID: data.candidateSendID });
+    });
+
+    socket.on('disconnectrtc', (current_roomId) => {
+        const roomID = socketRoom[socket.id];
+        let room = users[roomID];
+        if (room) {
+            room = room.filter((user) => user.id !== socket.id);
+            users[roomID] = room;
+            if (room.length === 0) {
+                delete users[roomID];
+                return;
+            }
+        }
+        socket.to(roomID).emit('user_exit', { id: socket.id });
+        socket.leave(current_roomId);
+    });
+
     socket.on('disconnect', () => {
         // 클라이언트의 연결이 끊어졌을 경우 실행됨
     });

@@ -1,6 +1,7 @@
 'use client';
 
-import Login from './login/page';
+import ChatBtn from '@/components/chatBtn';
+import LoginForm from '@/components/loginForm';
 
 // import { useEffect } from 'react';
 // import io from 'socket.io-client';
@@ -24,8 +25,9 @@ export default function Home() {
     // return <div onClick={socketTest}>Hlllllll</div>;
 
     return (
-        <>
-            <Login />
-        </>
+        <div className="flex">
+            <LoginForm />
+            <ChatBtn />
+        </div>
     );
 }

@@ -16,7 +16,7 @@ const LoginForm = () => {
             setIsLoggined(true);
             setUserNickName(logged);
         }
-    }, []);
+    }, [isLoggined]);
 
     const submitNotLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
