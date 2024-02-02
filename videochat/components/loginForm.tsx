@@ -51,25 +51,28 @@ const LoginForm = () => {
     };
 
     return (
-        <div>
+        <div className="w-1/4 border border-sky-500">
             {!isLoggined ? (
                 <div>
                     <form onSubmit={submitNotLogin}>
                         <input
                             id="nickname"
                             name="nickname"
-                            className="w-1/2"
+                            className="w-1/2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                             value={userNickName}
                             type="text"
-                            placeholder="아무것도 입력하지 않을경우 랜덤 닉네임이 생성됩니다."
+                            placeholder="NickName"
                             onChange={(e) => setUserNickName(e.target.value)}
                         ></input>
-                        <button className="mx-4 bg-white" type="submit">
-                            로그인없이 입장
+                        <button className="mx-4 bg-white border border-sky-500" type="submit">
+                            ENTER
                         </button>
                     </form>
+                    <div>OR</div>
                     <div>
-                        <button onClick={signInWithGoogle}>Google Login</button>
+                        <button className="border border-sky-500" onClick={signInWithGoogle}>
+                            Google Login
+                        </button>
                     </div>
                 </div>
             ) : (

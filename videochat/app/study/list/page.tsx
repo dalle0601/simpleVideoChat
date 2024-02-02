@@ -4,13 +4,19 @@ import React from 'react';
 const StudyList = () => {
     const posts = [
         {
-            id: 1,
+            id: 'study-1',
             title: '채현이의 사이드프로젝트',
             content: '이곳에 내용을 입력하세요.',
             author: '사용자1',
             date: '2022-02-01',
         },
-        { id: 2, title: '영어스터디', content: '이곳에 내용을 입력하세요.', author: '사용자2', date: '2022-02-02' },
+        {
+            id: 'study-2',
+            title: '영어스터디',
+            content: '이곳에 내용을 입력하세요.',
+            author: '사용자2',
+            date: '2022-02-02',
+        },
         // 추가적인 게시물들을 원하는 만큼 추가할 수 있습니다.
     ];
 

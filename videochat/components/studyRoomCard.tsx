@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 
 interface IStudyRoomCard {
-    id: number;
+    id: string;
     title: string;
     content: string;
     author: string;

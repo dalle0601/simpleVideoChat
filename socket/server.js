@@ -21,12 +21,18 @@ server.listen(4000, function () {
 
 let users = {};
 let socketRoom = {};
-const maximum = 5;
+let randomRoom = {};
+
+let maximum = 5;
 // connection을 수립하고, callback 인자로 socket을 받음
 io.on('connection', (socket) => {
     // 연결이 성공했을 경우 실행됨
 
     socket.on('join_roomRtc', (data) => {
+        if (data.type === 'single') {
+            maximum = 2;
+        }
+
         let checkData = false;
         if (users[data.room]) {
             const length = users[data.room].length;
@@ -38,7 +44,11 @@ io.on('connection', (socket) => {
         } else {
             users[data.room] = [{ id: socket.id, email: data.email }];
         }
-        socketRoom[socket.id] = data.room;
+        if (data.type === 'single') {
+            randomRoom[socket.id] = data.room;
+        } else {
+            socketRoom[socket.id] = data.room;
+        }
         socket.join(data.room);
         const usersInThisRoom = users[data.room].filter((user) => user.id !== socket.id);
         io.sockets.to(socket.id).emit('all_users', usersInThisRoom);
@@ -73,6 +83,22 @@ io.on('connection', (socket) => {
         }
         socket.to(roomID).emit('user_exit', { id: socket.id });
         socket.leave(current_roomId);
+    });
+
+    socket.on('find_room', () => {
+        let roomNames = Object.values(socketRoom);
+
+        let random = [];
+
+        for (let str of roomNames) {
+            if (!random.includes(str)) {
+                random.push(str);
+            }
+        }
+
+        let realRandom = random.filter((rooms) => rooms.split('-')[0] === 'study');
+        // let realRandom = random.filter((rooms) => rooms.split('-')[0] === 'random');
+        io.sockets.to(socket.id).emit('getRandomRoomList', { rooms: realRandom });
     });
 
     socket.on('disconnect', () => {

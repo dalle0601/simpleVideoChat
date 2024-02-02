@@ -25,7 +25,7 @@ export default function Home() {
     // return <div onClick={socketTest}>Hlllllll</div>;
 
     return (
-        <div className="flex">
+        <div className="flex flex-row p-40 h-full">
             <LoginForm />
             <ChatBtn />
         </div>
