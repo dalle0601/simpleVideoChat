@@ -12,7 +12,8 @@ const FindRandomChat = ({ setEvent }: IFindRandomChat) => {
     const router = useRouter();
     const nickName = localStorage.getItem('rtcName');
 
-    const [infoState, setInfoState] = useState(true);
+    const [joinState, setJoinState] = useState(true);
+    const [createState, setCreateState] = useState(true);
 
     const getRandomChatRoom = () => {
         socket.emit('find_room');
@@ -26,20 +27,29 @@ const FindRandomChat = ({ setEvent }: IFindRandomChat) => {
 
             let randomRoomNumber = Math.floor(Math.random() * rooms['rooms'].length);
 
-            setInfoState(false);
+            setJoinState(false);
 
+            let roomName = '';
+            if (rooms['rooms'].length === 0) {
+                roomName = `random-${Math.random().toString(36).substring(2, 10)}`;
+            } else {
+                roomName = rooms['rooms'][randomRoomNumber];
+                setCreateState(false);
+            }
             setTimeout(() => {
-                router.push(`/random/${rooms['rooms'][randomRoomNumber]}`);
+                router.push(`/random/${roomName}`);
             }, 3000);
         });
     }, []);
     return (
         <div className="flex flex-col justify-center items-center h-screen pb-[200px]">
-            {infoState ? (
+            {joinState ? (
                 <>
                     <p>채팅방을 찾고있습니다.</p>
                     <p>참여가능한 채팅방이 없으면 새로 생성됩니다.</p>
                 </>
+            ) : createState ? (
+                <p>채팅방을 생성중입니다.</p>
             ) : (
                 <p>채팅방에 입장중입니다.</p>
             )}
