@@ -16,9 +16,9 @@ SimpleVideoChat은 WebRTC와 Socket.IO를 이용하여 실시간 화상 채팅 �
   |로그아웃|현재 로그인 되어있는 경우 로그아웃 가능|
   
 - 개발 
-  Frontend: React, TypeScript, WebRTC
-  Backend: Node.js, Express, Socket.IO
-  Database: Firestore Database
+  - Frontend: React, TypeScript, WebRTC
+  - Backend: Node.js, Express, Socket.IO
+  - Database: Firestore Database
 
 ## 요구사항 분석
 - 사용자 요구사항:<br/>
@@ -44,7 +44,7 @@ SimpleVideoChat은 WebRTC와 Socket.IO를 이용하여 실시간 화상 채팅 �
     |Repository 클론|``` git clone https://github.com/dalle0601/simpleVideoChat.git > cd simpleVideoChat```|
     |Dependencies 설치|```cd socket > npm install ``` ```cd videochat > npm install```|
     |Firebase 설정| - Firebase 콘솔에서 프로젝트를 생성하고 Firestore와 Authentication을 설정 <br/> - Firebase 프로젝트의 설정 파일(firebase/firebase.ts)을 생성, 다음과 같은 내용을 추가. 이 파일은 .gitignore에 포함 혹은 .env 로 apiKey, authDomain 등 관리 <br />
-    |서버 실행|```cd socket > npm start``` ```cd videochat > npm run dev```|
+    |서버 실행|```cd socket > npm run dev``` ```cd videochat > npm run dev```|
     |브라우저 확인|``` http:localhost:3000 ```|
                 
 ## 사용법
