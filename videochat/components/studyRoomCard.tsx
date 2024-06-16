@@ -25,7 +25,6 @@ const StudyRoomCard = ({ id, title, content, author, date }: IStudyRoomCard) => 
             <p className="text-gray-600 mb-2">{content}</p>
             <div className="flex items-center justify-between">
                 <p className="text-sm text-gray-500">{`By ${author} on ${date}`}</p>
-                {/* 추가적인 버튼이나 기능을 여기에 추가할 수 있습니다. */}
             </div>
         </div>
     );

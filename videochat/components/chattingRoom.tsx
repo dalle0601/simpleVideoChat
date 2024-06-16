@@ -203,17 +203,22 @@ const ChattingRoom = ({ type, roomName }: IChattingRoom) => {
 
     return (
         <>
-            <div>스터디룸 - {roomName}</div>
-            <div className="flex">
-                <video muted ref={localVideoRef} autoPlay playsInline className="w-10 h-10" id="localVideo" />
-
-                {users.map((user, index) => (
-                    <Video key={index} nickname={user.email} stream={user.stream} />
-                ))}
-            </div>
-            <div className="flex">
-                <button className="mr-10">카메라, 마이크가 없어요!</button>
-                <button>{type === 'multi' ? '스터디룸 나가기' : '다른사람과 통화하기'}</button>
+            <div className="border container mx-auto mt-8 h-full">
+                <div>{roomName}</div>
+                <div className="flex flex-row-reverse w-full h-full">
+                    <div className="border w-1/4 flex items-center justyfi-center rounded-lg">
+                        <video muted ref={localVideoRef} autoPlay playsInline className="rounded-lg" id="localVideo" />
+                    </div>
+                    <div className="border w-3/4">
+                        {users.map((user, index) => (
+                            <Video key={index} nickname={user.email} stream={user.stream} />
+                        ))}
+                    </div>
+                </div>
+                <div className="flex">
+                    <button className="mr-10">카메라, 마이크가 없어요!</button>
+                    <button>{type === 'multi' ? '스터디룸 나가기' : '다른사람과 통화하기'}</button>
+                </div>
             </div>
         </>
     );

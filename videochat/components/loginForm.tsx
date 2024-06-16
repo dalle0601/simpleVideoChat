@@ -52,15 +52,21 @@ const LoginForm = () => {
             });
     };
 
+    const signOut = () => {
+        localStorage.removeItem('rtcName');
+        setIsLoggined(false);
+        setUserNickName('');
+    };
+
     return (
         <div className="min-w-[350px] md:min-w-[400px] w-full md:w-5/12">
             {!isLoggined ? (
                 <div className="flex items-center justify-center h-full w-full">
-                    <form className="w-full" onSubmit={submitNotLogin}>
+                    <form className="" onSubmit={submitNotLogin}>
                         <input
                             id="nickname"
                             name="nickname"
-                            className="min-w-[300px] md:min-w-[350px] md:max-w-[400px] w-full m-2 p-2 border rounded-xl focus:outline-none focus:ring focus:border-blue-300"
+                            className="min-w-[300px] md:min-w-[350px] m-2 p-2 border rounded-xl focus:outline-none focus:ring focus:border-blue-300"
                             value={userNickName}
                             type="text"
                             placeholder="NickName"
@@ -77,26 +83,23 @@ const LoginForm = () => {
                                 src={googleBtn}
                                 alt="googlelogin"
                                 className="cursor-pointer object-cover transition-opacity duration-300 ease-in-out hover:opacity-75"
-                                // className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
                                 onClick={signInWithGoogle}
                             />
                         </div>
                     </form>
                 </div>
             ) : (
-                <div className="flex flex-column items-center justify-center h-full">
+                <div className="flex flex-col items-center justify-center h-full">
                     <p className="text-xl text-white">{userNickName}님 안녕하세요.</p>
+                    <button
+                        onClick={signOut}
+                        className="cursor-pointer bg-white object-cover font-bold py-2 px-4 mt-[10px] rounded transition-opacity duration-300 ease-in-out hover:opacity-75"
+                    >
+                        로그아웃
+                    </button>
                 </div>
             )}
             {showPopup && (
-                // <div>
-                //     <p>* 닉네임으로 접근시 *</p>
-                //     <p> - 제한된 기능 (랜덤 1:1채팅) 만 이용가능합니다.</p>
-                //     <p> - 닉네임을 입력하지 않으실 경우 랜덤으로 입력됩니다.</p>
-                //     <button onClick={() => notGoogleLogin()}>확인</button>
-                //     <button onClick={() => setShowPopup(false)}>취소</button>
-                // </div>
-
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex items-center justify-center min-h-screen">
                         <div className="bg-white p-8 rounded shadow-md">
