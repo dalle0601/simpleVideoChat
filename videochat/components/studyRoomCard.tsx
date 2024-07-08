@@ -24,7 +24,7 @@ const StudyRoomCard = ({ id, title, content, author, date }: IStudyRoomCard) => 
             className="bg-white shadow-md rounded-md p-4 mb-4 cursor-pointer hover:bg-gray-200"
             onClick={enterStudyRoom}
         >
-            <h2 className="text-xl font-bold mb-2">{title}</h2>
+            <h2 className="text-xl font-bold mb-2 text-black">{title}</h2>
             <p className="text-gray-600 mb-2">{content}</p>
             <div className="flex items-center justify-between">
                 <p className="text-sm text-gray-500">{`By ${author} on ${date}`}</p>

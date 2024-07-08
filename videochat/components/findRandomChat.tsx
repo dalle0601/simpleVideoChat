@@ -29,6 +29,7 @@ const FindRandomChat = ({ setEvent }: IFindRandomChat) => {
 
             let randomRoomNumber = Math.floor(Math.random() * rooms['rooms'].length);
 
+            console.log(randomRoomNumber);
             setJoinState(false);
 
             let roomName = '';
@@ -39,16 +40,16 @@ const FindRandomChat = ({ setEvent }: IFindRandomChat) => {
                 setCreateState(false);
             }
             setShowModal(true);
-            // setTimeout(() => {
-            //     setShowModal(false);
-            //     router.push(`/random/${roomName}`);
-            // }, 3000);
+            setTimeout(() => {
+                setShowModal(false);
+                router.push(`/random/${roomName}`);
+            }, 3000);
         });
     }, []);
 
     return (
         <div className="fixed inset-0 flex items-center justify-center">
-            <div className="text-black flex flex-col justify-center items-center">
+            <div className="border-4 border-black rounded-lg p-5 bg-white text-black flex flex-col justify-center items-center">
                 {joinState ? (
                     <>
                         <p>채팅방을 찾고있습니다.</p>
@@ -61,15 +62,7 @@ const FindRandomChat = ({ setEvent }: IFindRandomChat) => {
                 )}
 
                 <Loader />
-                <div className="cursor-pointer pt-5" onClick={() => setEvent(false)}>
-                    취소하기
-                </div>
             </div>
-
-            {/* <Modal show={showModal} onClose={() => setShowModal(false)}>
-                <p>채팅방에 입장중입니다.</p>
-                <Loader />
-            </Modal> */}
         </div>
     );
 };

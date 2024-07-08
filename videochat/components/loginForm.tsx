@@ -91,7 +91,7 @@ const LoginForm = () => {
                     <p className="text-xl text-white">{userNickName}님 안녕하세요.</p>
                     <button
                         onClick={signOut}
-                        className="cursor-pointer bg-white object-cover font-bold py-2 px-4 mt-[10px] rounded transition-opacity duration-300 ease-in-out hover:opacity-75"
+                        className="text-black cursor-pointer bg-white object-cover font-bold py-2 px-4 mt-[10px] rounded transition-opacity duration-300 ease-in-out hover:opacity-75"
                     >
                         로그아웃
                     </button>

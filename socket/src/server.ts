@@ -115,8 +115,8 @@ io.on('connection', (socket: Socket) => {
                 random.push(str);
             }
         }
-
-        const realRandom = random.filter((rooms) => rooms.split('-')[0] === 'study');
+        console.log(roomNames);
+        const realRandom = random.filter((rooms) => rooms.split('-')[0] === 'random');
         io.to(socket.id).emit('getRandomRoomList', { rooms: realRandom });
     });
 
