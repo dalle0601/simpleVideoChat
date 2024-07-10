@@ -1,12 +1,13 @@
-'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface Props {
     nickname: string;
     stream: MediaStream;
+    isLocal?: boolean;
+    isMulti?: boolean;
 }
 
-const Video = ({ nickname, stream }: Props) => {
+const Video = ({ nickname, stream, isLocal = false, isMulti = false }: Props) => {
     const ref = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
@@ -14,10 +15,12 @@ const Video = ({ nickname, stream }: Props) => {
     }, [stream]);
 
     return (
-        <>
-            <video className=" w-10 h-10" ref={ref} autoPlay playsInline />
-            <label>{nickname}</label>
-        </>
+        <div className={`relative ${isLocal ? 'w-1/4' : 'w-full'}`}>
+            <video ref={ref} autoPlay playsInline className="rounded-lg w-full h-full" />
+            <div className="absolute bottom-0 right-0 bg-gray-200 p-1 rounded-lg">
+                <span className="text-xs">{nickname}</span>
+            </div>
+        </div>
     );
 };
 

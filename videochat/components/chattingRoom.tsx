@@ -202,25 +202,51 @@ const ChattingRoom = ({ type, roomName }: IChattingRoom) => {
     }, []);
 
     return (
-        <>
-            <div className="border container mx-auto mt-8 h-full">
-                <div>{roomName}</div>
-                <div className="flex flex-row-reverse w-full h-full">
-                    <div className="border w-1/4 flex items-center justyfi-center rounded-lg">
-                        <video muted ref={localVideoRef} autoPlay playsInline className="rounded-lg" id="localVideo" />
-                    </div>
-                    <div className="border w-3/4">
+        // <>
+        //     <div className="border container mx-auto mt-8 h-full">
+        //         <div>{roomName}</div>
+        //         <div className="flex flex-row-reverse w-full h-full">
+        //             <div className="border w-1/4 flex items-center justyfi-center rounded-lg">
+        //                 <video muted ref={localVideoRef} autoPlay playsInline className="rounded-lg" id="localVideo" />
+        //             </div>
+        //             <div className="border w-3/4">
+        //                 {users.map((user, index) => (
+        //                     <Video key={index} nickname={user.email} stream={user.stream} />
+        //                 ))}
+        //             </div>
+        //         </div>
+        //         <div className="flex">
+        //             <button className="mr-10">카메라, 마이크가 없어요!</button>
+        //             <button>{type === 'multi' ? '스터디룸 나가기' : '다른사람과 통화하기'}</button>
+        //         </div>
+        //     </div>
+        // </>
+
+        <div className="border container mx-auto mt-8 h-full">
+            <div>{roomName}</div>
+            <div className={`flex ${type === 'multi' ? 'flex-row-reverse' : 'flex-row'}`}>
+                <div
+                    className={`${
+                        type === 'multi' ? 'w-3/4' : 'w-1/4'
+                    } border rounded-lg flex items-center justify-center`}
+                >
+                    <video muted ref={localVideoRef} autoPlay playsInline className="rounded-lg" id="localVideo" />
+                </div>
+                <div className={`${type === 'multi' ? 'w-1/4' : 'w-3/4'} border`}>
+                    <div className={`${type === 'multi' ? 'grid grid-cols-2 gap-4' : 'flex justify-end'}`}>
                         {users.map((user, index) => (
-                            <Video key={index} nickname={user.email} stream={user.stream} />
+                            <Video key={index} nickname={user.email} stream={user.stream} isMulti={type === 'multi'} />
                         ))}
                     </div>
                 </div>
-                <div className="flex">
-                    <button className="mr-10">카메라, 마이크가 없어요!</button>
-                    <button>{type === 'multi' ? '스터디룸 나가기' : '다른사람과 통화하기'}</button>
-                </div>
             </div>
-        </>
+            <div className="flex mt-4">
+                <button className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-lg">카메라, 마이크가 없어요!</button>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+                    {type === 'multi' ? '스터디룸 나가기' : '다른 사람과 통화하기'}
+                </button>
+            </div>
+        </div>
     );
 };
 
